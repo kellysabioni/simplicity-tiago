@@ -1,0 +1,382 @@
+*, *::after, *::before { box-sizing: border-box; }
+
+/* Declaração de variáveis para a paleta de cores */
+:root {
+    --cor-titulo: #4d4d4d;
+    --cor-texto: #333;
+    --cor-escura: #000;
+    --cor-clara: #fff;
+    --cor-intermediaria: #ececec;
+}
+
+/* Reset em alguns elementos usados neste projeto */
+body, h1, h2, p, figure, .links-menu {
+    margin: 0;
+    padding: 0;
+    list-style: none; /* removendo marcadores da lista ul */
+}
+
+/* Importante para uso da medida relativa REM */
+html { font-size: 16px; }
+
+body {
+    font-family: "Noto Sans", sans-serif;
+    color: var(--cor-texto);
+}
+
+img { max-width: 100%; }
+
+a { text-decoration: none; }
+
+.titulo {
+    font-family: Raleway, sans-serif;
+    text-transform: uppercase;
+    font-weight: 800;
+    font-size: 1.5rem;
+
+    /* Formatando o link dentro do h1 */
+    a {
+        background-color: var(--cor-escura);
+        color: var(--cor-clara);
+        padding: 0.3rem 1rem;
+        border-radius: 4px;
+    }
+}
+
+.topo {
+    /* Necessário para garantir 
+    que o topo fique sempre por cima de 
+    qualquer elemento */
+    z-index: 10;
+    
+    position: sticky;
+    top: 0;
+    background-color: var(--cor-clara);
+    
+    /* Classe .limitador específica para uso
+    no cabeçalho/topo: além das configurações
+    gerais (width e margin), AQUI ela também tem
+    altura e ajustes do flex. */
+    .limitador {
+        height: 12vh; 
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+/* Classe .limitador de uso geral:
+Sempre terá largura de 95vw e margin auto
+não importando onde será aplicada. */
+.limitador {
+    width: 95vw;
+    margin: auto;
+}
+
+
+.titulo-menu a {
+    color: var(--cor-escura);
+    font-size: 1.2rem;
+    padding: 1rem;
+    display: inline-block;
+}
+
+.menu a:hover, .menu a:focus {
+    background-color: var(--cor-intermediaria);
+}
+
+/* Estilos para a lista ul contida no menu nav */
+.links-menu {
+    /* Atenção! Neste ponto, fazemos com que
+    os links do menu iniciem escondidos (display:none) em telas pequenas.
+    Posteriormente, com a ajuda do CSS combinado com o JS, faremos os comandos necessários para exibir/esconder de forma alternada. */
+    display: none;
+
+    a {
+        color: var(--cor-escura);
+        font-weight: bold;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+
+
+.links-menu.aberto {
+    /* Ativamos o flex para anular o display:none (fazendo os links aparecem) e ao mesmo tempo ter os recursos do flex. */
+    display: flex;
+
+    /* Mudamos a direção para coluna para
+    voltar a exibir um link em cima do outro. */
+    flex-direction: column;
+
+    /* Usamos o position e coordenadas para
+    ajustar a posição final e o tamanho que os
+    links ocuparão na tela logo abaixo da palavra
+    Menu. */
+    position: absolute;
+    left: 0;
+    right: 0;
+
+    background-color: var(--cor-clara);
+}
+
+.destaque {
+    height: 88vh;
+    background-image: url(../imagens/fundo-destaque.jpg);
+    background-attachment: fixed;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    /* Ou usando: */
+    /* flex-wrap: wrap;
+    align-content: center; */
+
+    h2, p {
+        color: var(--cor-clara);
+        text-align: center;
+
+        /* Aplicar a animação */
+        animation-name: animaDestaque;
+        animation-duration: .5s;
+    }    
+
+    h2 { font-size: clamp(3rem, 10vw, 7rem); }
+
+    p { 
+        font-size: clamp(1.5rem, 3vw, 3rem); 
+        animation-delay: .5s;
+
+        /* Antes da animação: o elemento
+        assume o estilo do primeiro keyframe (ou seja, o from). Portanto assim, forçamos
+        a iniciar com opacity zero e escala menor 30%. */
+        animation-fill-mode: backwards;
+    }
+}
+
+/* Sobre a função clamp()
+Função útil para redimensionamento responsivo
+de acordo com critérios de tamanhos mínimo, ideal/variável/responsivo e máximo. Uso mais comum é para textos responsivos, mas pode ser usada com qualquer propriedade que envolva tamanhos (width, height etc).
+
+clamp(
+    tamanho mínimo,
+    tamanho ideal/variável/responsivo,
+    tamanho máximo
+) */
+
+/* 1) Criar a animação */
+@keyframes animaDestaque {
+    from {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    to { 
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+article {
+    h2 {
+        padding: 1rem;
+        font-size: 1.4rem;
+        font-family: Raleway, sans-serif;
+        color: var(--cor-titulo);
+    }
+
+    p {
+        padding: .5rem 0;
+        font-size: 1.2rem;
+    }
+
+    address {
+        font-style: normal;
+        font-size: 1.2rem;
+    }
+}
+
+.front-end, .historia, .localizacao {
+    text-align: center;
+}
+
+/* Exercícios (correção) */
+.historia {
+    background-image: url(../imagens/fundo-madeira.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+
+    h2 {
+        color: var(--cor-clara);
+        text-shadow: var(--cor-escura) 2px 2px 5px;
+    }
+
+    iframe {
+        width: 100%;
+        max-width: 700px;
+        margin-bottom: 2rem;
+    }
+}
+
+.localizacao iframe {
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.rodape {
+    background-color: var(--cor-escura);
+    height: 30vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--cor-clara);
+    font-weight: bold;
+    text-align: center;
+}
+
+
+/* Regras para as páginas internas (Produtos, Serviços e Contato) */
+.conteudo-interno {
+    background-color: var(--cor-intermediaria);
+    padding: .5rem;
+    border-radius: 8px;
+
+    h2 { 
+        padding-left: 0; 
+        font-size: 1.8rem;
+    }
+
+    table {
+        border: solid 4px var(--cor-escura);
+        width: 80%;
+        max-width: 600px;
+        margin: auto;
+        border-collapse: collapse;
+    }
+
+    caption {
+        text-transform: uppercase;
+        font-size: 1.2rem;
+        padding-bottom: .3rem;
+    }
+
+    th, td { 
+        border: solid 1px var(--cor-escura); 
+    }
+
+    th {
+        background-color: var(--cor-escura);
+        color: var(--cor-clara);
+        padding: .5rem;
+    }
+
+    td { padding: .4rem; }
+
+    td:nth-child(2) { text-align: center; }
+
+    td:last-child, th:last-child { 
+        text-align: right; 
+    }
+
+    tr:nth-child(odd) {
+        background-color: var(--cor-clara);
+    }
+}
+
+
+
+.galeria {
+    text-align: center;
+    img {
+        border-radius: 50%;
+        transform: scale(0.8) rotate(-10deg);
+        box-shadow: var(--cor-escura) 0 0 30px;
+        transition: .5s;
+        &:hover { /* ou FORA .galeria img:hover {} */
+            transform: scale(1) rotate(0);
+        }
+    }
+}
+
+
+/* Regras para o formulário de contato */
+form {
+    max-width: 500px;
+    margin: auto;
+}
+
+label {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: var(--cor-texto);
+}
+
+form div { margin-bottom: 1rem; }
+
+input, select, textarea {
+    width: 100%;
+    border: none;
+    padding: 6px;
+    height: 40px;
+    border-radius: 4px;
+    background-color: var(--cor-clara);
+}
+
+textarea { height: auto; }
+
+button {
+    border: none;
+    background-color: var(--cor-escura);
+    color: var(--cor-clara);
+    padding: 10px;
+    font-weight: bold;
+    border-radius: 4px;
+}
+
+button:hover, button:focus {
+    background-color: darkblue;
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+#area-do-cep {
+    display: flex;
+    justify-content: space-between;
+}
+
+#cep { width: 50%; }
+
+#buscar { 
+    width: 49%;
+    padding: 12px;
+}
+
+.campos-restantes { display: none; }
+
+/* Media Queries: regras de uso condicional
+de acordo com o tamanho de tela necessário
+para ajustes no site. */
+@media screen and (min-width: 600px) {
+    /* Escondendo a palavra "Menu" */
+    .titulo-menu { display: none; }
+    
+    /* Exibimos os links (lista de links) do menu */
+    .links-menu { 
+        display: flex;
+
+        /* Forçamos cada item da lista a ter largura total
+        e, com isso, redistribuir os espaços/alinhamentos. */
+        li { width: 100%; }
+    }
+    /* Ajustamos o tamanho do menu (nav) como um todo */
+    .menu { width: 60%; }
+}
+
+@media screen and (min-width: 1000px) {
+    html { font-size: 18px; }
+    .limitador { max-width: 1000px; }
+}
